@@ -8,6 +8,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @RestController
 @RequestMapping("/respuestas")
 public class RespuestaController {
@@ -30,7 +33,15 @@ public class RespuestaController {
 
     @GetMapping
     public ResponseEntity listarRespuestas(){
-        return ResponseEntity.ok(respuestaRepository.findByActivoTrue());
+       List<Respuesta> respuestas = respuestaRepository.findByActivoTrue();
+       List<RespuestaResponse> respuestasDTO = new ArrayList<>();
+
+        for (Respuesta respuesta:
+             respuestas) {
+            RespuestaResponse r = new RespuestaResponse(respuesta);
+            respuestasDTO.add(r);
+        }
+        return ResponseEntity.ok(respuestasDTO);
     }
 
     @PutMapping
