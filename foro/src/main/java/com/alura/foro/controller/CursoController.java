@@ -30,7 +30,7 @@ public class CursoController {
 
     @GetMapping
     public ResponseEntity listarCursos(){
-        return ResponseEntity.ok().body(cursoRepository.findAll());
+        return ResponseEntity.ok().body(cursoRepository.findByActivoTrue());
     }
 
     @PutMapping
@@ -39,5 +39,13 @@ public class CursoController {
         var curso = cursoRepository.getReferenceById(datos.id());
         curso.actualizarDatos(datos);
         return ResponseEntity.ok(new CursoResponse(curso));
+    }
+
+    @DeleteMapping("/{id}")
+    @Transactional
+    public ResponseEntity desactivar(@PathVariable Long id){
+        Curso curso = cursoRepository.getReferenceById(id);
+        curso.desactivar();
+        return ResponseEntity.ok().build();
     }
 }

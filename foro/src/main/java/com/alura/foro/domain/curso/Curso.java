@@ -18,6 +18,7 @@ public class Curso {
     private long id;
     private String nombre;
     private String categoria;
+    private Boolean activo;
 
     public Curso(DatosNuevoCurso datosNuevoCurso){
         this.nombre = datosNuevoCurso.nombre();
@@ -31,5 +32,9 @@ public class Curso {
         if (datos.categoria() != null){
             this.categoria = datos.categoria();
         }
+    }
+
+    public void desactivar(){
+        this.activo = false;
     }
 }
