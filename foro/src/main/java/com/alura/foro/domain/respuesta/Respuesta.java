@@ -29,7 +29,7 @@ public class Respuesta {
     @JoinColumn(name = "autor_id")
     private Usuario autor;
     private Boolean solucion = false;
-
+    private Boolean activo;
 
     public Respuesta(String mensaje, Usuario usuario, Topico topico) {
         this.mensaje = mensaje;
@@ -42,5 +42,9 @@ public class Respuesta {
             this.mensaje = datos.mensaje();
         }
 
+    }
+
+    public void desactivar(){
+        this.activo = false;
     }
 }

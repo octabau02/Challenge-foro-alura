@@ -20,6 +20,7 @@ public class Usuario {
     private String nombre;
     private String email;
     private String contrasena;
+    private Boolean activo;
 
     public Usuario(DatosNuevoUsuario datosNuevoUsuario){
         this.nombre = datosNuevoUsuario.nombre();
@@ -37,5 +38,9 @@ public class Usuario {
         if(datos.contrasena() != null){
             this.contrasena = datos.contrasena();
         }
+    }
+
+    public void desactivar(){
+        this.activo = false;
     }
 }

@@ -28,7 +28,7 @@ public class UsuarioController {
 
     @GetMapping
     public ResponseEntity listarUsuarios(){
-        return ResponseEntity.ok(usuarioRepository.findAll());
+        return ResponseEntity.ok(usuarioRepository.findByActivoTrue());
     }
 
     @PutMapping
@@ -37,5 +37,13 @@ public class UsuarioController {
         var usuario = usuarioRepository.getReferenceById(datos.id());
         usuario.actualizarInformacion(datos);
         return ResponseEntity.ok(new UsuarioResponse(usuario));
+    }
+
+    @DeleteMapping("/{id}")
+    @Transactional
+    public ResponseEntity desactivar(@PathVariable Long id){
+        Usuario usuario = usuarioRepository.getReferenceById(id);
+        usuario.desactivar();
+        return ResponseEntity.ok().build();
     }
 }

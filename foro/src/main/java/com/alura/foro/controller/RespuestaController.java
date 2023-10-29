@@ -30,7 +30,7 @@ public class RespuestaController {
 
     @GetMapping
     public ResponseEntity listarRespuestas(){
-        return ResponseEntity.ok(respuestaRepository.findAll());
+        return ResponseEntity.ok(respuestaRepository.findByActivoTrue());
     }
 
     @PutMapping
@@ -39,5 +39,13 @@ public class RespuestaController {
         var respuesta = respuestaRepository.getReferenceById(datos.id());
         respuesta.actualizarDatos(datos);
         return ResponseEntity.ok(new RespuestaResponse(respuesta));
+    }
+
+    @DeleteMapping("/{id}")
+    @Transactional
+    public ResponseEntity desactivar(@PathVariable  Long id){
+        Respuesta respuesta =respuestaRepository.getReferenceById(id);
+        respuesta.desactivar();
+        return ResponseEntity.ok().build();
     }
 }
